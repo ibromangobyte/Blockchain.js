@@ -12,7 +12,7 @@ function Blockchain()
     this.pendingTransactions = [];
 
     /* Create new block
-    * @params: nounce - Block creaeted legitimately via Proof of Work
+    * @params: nounce - Block created legitimately via Proof of Work
     * @params: previousBlockHash - Data for the new block hashed
     * @params: hash - Data from the previous block hashed
     */
