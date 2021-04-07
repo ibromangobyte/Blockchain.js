@@ -58,3 +58,34 @@ const currentBlockHash = [
 const nonce = 100;
 // Call the hasbBlock method
 console.log(bitcoin.hashBlock(previousBlockHash, currentBlockHash, nonce));
+
+/*
+* Testing proofOfWork method
+*/
+const previousBlockHash1 = 'OISOEJSIEJINJENFKJS';
+const currentBlockHash1 = [
+    {
+        amount: 101,
+        sender: 'NISEFNSJENFSE',
+        recipient: 'KSNVJKNJKEVSE'
+    },
+    {
+        amount: 130,
+        sender: 'KJSBNJKNEJGSEG',
+        recipient: 'IUHREIUGBSIAEG'
+    },
+    {
+        amount: 280,
+        sender: 'SEJGN868SEFHBJ',
+        recipient: 'SKJFBNSEJ878A'
+    }
+];
+// Call the proofOfWork method
+const nonce1 = bitcoin.proofOfWork(previousBlockHash1, currentBlockHash1);
+// Write to console the found hash
+console.log(bitcoin.hashBlock(previousBlockHash1, currentBlockHash1, nonce1));
+
+/*
+* Testing genesis block
+*/
+console.log(bitcoin);

@@ -1,21 +1,26 @@
 // Import
 const sha256 = require('sha256');
-/*
+
+/*!
 * Blockchain Data Structure
-* @info: A blockchain data structure written in Javascript.
 */
+
 function Blockchain()
 {
+    // Arbitary params
+    const nonce = 100, previousBlockHash = '0', hash = '0'; 
     // All blocks that are mined are stored in the array as a chain
     this.chain = [];
     // Hold all of the new and pending transactions that are created before placed into a block
     this.pendingTransactions = [];
 
-    /* Create new block
-    * @params: nonce - Block created legitimately via Proof of Work
-    * @params: previousBlockHash - Data for the new block hashed
-    * @params: hash - Data from the previous block hashed
+    /** 
+     * Create new block
+     * @param {int} nonce - Block created legitimately via Proof of Work
+     * @param {string} previousBlockHash - Data for the new block hashed
+     * @param {string} hash - Data from the previous block hashed
     */
+
     Blockchain.prototype.createNewBlock = (nonce, previousBlockHash, hash) =>
     {
         const newBlock = {
@@ -34,17 +39,22 @@ function Blockchain()
         return newBlock;
     }
 
+    // Create genesis block
+    this.createNewBlock(nonce, previousBlockHash, hash);
+
     // Return the last block number
     Blockchain.prototype.getLastBlock = () => 
     {
         return this.chain.length - 1;
     }
 
-    /* Create new transaction
-    * @params: amount - take the amount of the transaction
-    * @params: sender - senders address
-    * @params: recipient - recipients address
+    /** 
+     * Create new transaction
+     * @param {int} amount - take the amount of the transaction
+     * @param {string} sender - senders address
+     * @param {string} recipient - recipients address
     */
+
     Blockchain.prototype.createNewTransaction = (amount, sender, recipient) => 
     {
         const newTransaction = {
@@ -58,11 +68,13 @@ function Blockchain()
         return this.getLastBlock()['index'] + 1;
     }
 
-    /* Return hashed data
-    * @params: previousBlockHash -
-    * @params: currentBlockHash -
-    * @params: nonce - 
+    /**
+     * Return hashed data
+     * @param {string} previousBlockHash -
+     * @param {string} currentBlockHash -
+     * @param {int} nonce - 
     */
+
     Blockchain.prototype.hashBlock = (previousBlockHash, currentBlockHash, nonce) =>
     {
         // Change all pieces of data into a single piece of data
@@ -73,11 +85,12 @@ function Blockchain()
         return hash;
     }
 
-    /*
-    * Define Proof of Work
-    * @params: previousBlockHash - 
-    * @params: currentBlockHash - 
+    /**
+     * Define Proof of Work
+     * @param {string} previousBlockHash - 
+     * @param {string} currentBlockHash - 
     */
+
    Blockchain.prototype.proofOfWork = (previousBlockHash, currentBlockHash) =>
    {
        // Define a nonce and quad value
@@ -85,10 +98,11 @@ function Blockchain()
        // Hash all the data initially
        let hash = this.hashBlock(previousBlockHash, currentBlockHash, nonce);
        // Iterate over the hashBlock method until suitable hash appears
-       while(hash.subString(0, 4) !== quadValue) {
+       while(hash.substring(0, 4) !== quadValue) {
            nonce++; // Different value of nonce
-           hash = this.hashBlock(previousBlockHash, currentBlockHash, nonce); // 
+           hash = this.hashBlock(previousBlockHash, currentBlockHash, nonce); 
        };
+
        // Return nonce value that returned valid hash
        return nonce;
    }
