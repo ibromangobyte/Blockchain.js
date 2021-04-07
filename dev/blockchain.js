@@ -2,7 +2,7 @@
 const sha256 = require('sha256');
 /*
 * Blockchain Data Structure
-* @info: 
+* @info: A blockchain data structure written in Javascript.
 */
 function Blockchain()
 {
@@ -34,7 +34,7 @@ function Blockchain()
         return newBlock;
     }
 
-    // Return the last block
+    // Return the last block number
     Blockchain.prototype.getLastBlock = () => 
     {
         return this.chain.length - 1;
@@ -72,6 +72,26 @@ function Blockchain()
         // Return hash
         return hash;
     }
+
+    /*
+    * Define Proof of Work
+    * @params: previousBlockHash - 
+    * @params: currentBlockHash - 
+    */
+   Blockchain.prototype.proofOfWork = (previousBlockHash, currentBlockHash) =>
+   {
+       // Define a nonce and quad value
+       let nonce = 0, quadValue = '0000';
+       // Hash all the data initially
+       let hash = this.hashBlock(previousBlockHash, currentBlockHash, nonce);
+       // Iterate over the hashBlock method until suitable hash appears
+       while(hash.subString(0, 4) !== quadValue) {
+           nonce++; // Different value of nonce
+           hash = this.hashBlock(previousBlockHash, currentBlockHash, nonce); // 
+       };
+       // Return nonce value that returned valid hash
+       return nonce;
+   }
 }
 
 module.exports = Blockchain;
