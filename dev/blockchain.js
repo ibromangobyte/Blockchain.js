@@ -45,7 +45,7 @@ function Blockchain()
     // Return the last block number
     Blockchain.prototype.getLastBlock = () => 
     {
-        return this.chain.length - 1;
+        return this.chain[this.chain.length - 1];
     }
 
     /** 
@@ -61,7 +61,7 @@ function Blockchain()
             amount: amount, 
             sender: sender,
             recipient: recipient
-        }
+        };
         // Append new transaction to blockchain
         this.pendingTransactions.push(newTransaction);
         // Return the number of the block the transaction is added to
